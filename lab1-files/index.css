@@ -43,6 +43,11 @@ li:hover{
   left:50%;
   top:10px;
 }
+@media(max-width:1000px) {
+  #twitter-logo {
+    display:none;
+  }
+}
 
 #tweetButton{
   border-radius: 30px;
@@ -58,6 +63,11 @@ li:hover{
   border: white;
   cursor: pointer;
   margin-right:30px;
+}
+@media(max-width:600px) {
+  #tweetButton {
+    display:none;
+  }
 }
 @media(max-width:1200px){
   #right-div{

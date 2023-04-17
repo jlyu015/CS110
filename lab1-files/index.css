@@ -24,9 +24,9 @@ li{
   color: gray;
   display:inline-block;
   font-weight: bold;
-  cursor: pointer;
 }
 li:hover{
+  cursor: pointer;
   color:blue;
   font-weight: bold;
   text-decoration: underline;

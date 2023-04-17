@@ -35,9 +35,9 @@ li:hover{
   position: relative;
   left:18%
 }
-@media(max-width:1500px) {
+@media(max-width:1500px){
   #menu {
-    left:0%;
+    left: 10%;
   }
 }
 #twitter-logo{
@@ -98,7 +98,7 @@ li:hover{
 
 #left-div{
   margin-top: 1.5%;
-  margin-left: 0px;
+  margin-left: 40px;
   margin-right: 5px;
   height: 200px;
   width: 290px;

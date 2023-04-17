@@ -32,8 +32,8 @@ li:hover{
   text-decoration: underline;
 }
 #menu{
-  position: relative;
-  left:15%
+  position: absolute;
+  left:370px;
 }
 
 #twitter-logo{

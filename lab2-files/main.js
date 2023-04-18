@@ -1,11 +1,11 @@
-
 let gameBoard = ["", "", "",
                  "", "", "",
                  "", "", ""];
 
 let gameOver = false;
-
 let currentPlayer = "X";
+var scoreX = 0;
+var scoreO = 0;
 
 
 

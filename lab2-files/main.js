@@ -15,21 +15,73 @@ let cells = document.getElementsByClassName("xo");
 let scoreBoard = document.getElementsByClassName("score-board");
 let timerDisplay = document.getElementById("timer");
 let emptyCells = getEmptyCells(cells);
+const secondsTimer = 2;
+let secondsLeft = secondsTimer; // Set the timer to run for 5 seconds
+let moved = 0;
 
-
-let allow = 1;
 
 document.addEventListener("DOMContentLoaded", function() {
-    const cells = document.querySelectorAll('.game_board > .row > div');
+    cells = document.querySelectorAll('.game_board > .row > div');
     console.log(cells)
 
     AIcheck = document.getElementById('play-ai');
     AIcheck.addEventListener('change', function() {
         enableAI = AIcheck.checked;
         console.log("enableAI",enableAI);
+        newGame();
+        if(this.checked){
+            stopTimer();
+        }
+        else{
+            clearInterval(intervalId);
+            startTimer();
+        }
+        // if(enableAI && currentPlayer == 'O'){
+        //     console.log("ai move");
+        //     emptyCells = getEmptyCells(cells);
+        //     move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        //     console.log("emptyCells",emptyCells);
+        //     console.log("move", move);
+        //     aiCell = cells[move];   
+        //     console.log("aiCell", aiCell.querySelector('.xo'));
+        //     const xo2 = aiCell.querySelector('.xo');
+        //     xo2.textContent = currentPlayer;
+        //     // console.log(currentPlayer);
+        //     currPieces = currentPlayer == 'X' ? XPieces : OPieces;
+        //     // console.log(currentPlayer + "lenght " + currPieces.length, currPieces);
+        //     if(currPieces.length >= 4) {
+            
+        //         oldIndex = currPieces[0];
+        //         currPieces.shift();
+        //         oldCell = cells[oldIndex];
+        //         clearCell(oldCell, oldIndex);
+        //         // console.log("after shift " + currPieces);
+        //     }
+        //     currPieces.push(move);
+        //     updateBoard(move);
+        //     if(checkGameWin()) {
+        //         gameOver = true;
+        //         currentPlayer == 'X' ? scoreX++ : scoreO++;
+        //         updateScoreBoard();
+        //         updateBoard(move);
+        //         setTimeout(function() {
+        //             alert(currentPlayer + " has won");
+        //         }, 10); 
+        //         clearInterval(intervalId)
+        //         return;
+        //     }
+        //     else if(checkDraw()) {
+        //         alert("The game is a Draw!");
+        //         return;
+        //     }
+        //     switchPlayer();
+        //     emptyCells = getEmptyCells(cells);
+        //     console.log("empty cells");
+        //     console.log(emptyCells);
+        // }
         // document.getElementById('play-ai').disabled = true;
     });
-
+    updateDisplayPlayer();
 
     for (let i = 0; i < cells.length; i++) {
         const cell = cells[i];
@@ -37,8 +89,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         cell.addEventListener('click', function() {
             if(cell.textContent == "" && !gameOver) {
+                secondsLeft = secondsTimer;
                 console.log(enableAI, currentPlayer)
-                xo = cell.querySelector('.xo');
+                const xo = cell.querySelector('.xo');
                 xo.textContent = currentPlayer;
 
                 currPieces = currentPlayer == 'X' ? XPieces : OPieces;
@@ -61,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     setTimeout(function() {
                         alert(currentPlayer + " has won");
                     }, 10); 
+                    clearInterval(intervalId);
                     return;
                 }
                 
@@ -69,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     return;
                 }
                 // console.log(currentPlayer);
+                // startTimer();
                 switchPlayer();
                 // console.log(currentPlayer);
 
@@ -89,8 +144,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     console.log("move", move);
                     aiCell = cells[move];   
                     console.log("aiCell", aiCell.querySelector('.xo'));
-                    xo = aiCell.querySelector('.xo');
-                    xo.textContent = currentPlayer;
+                    const xo2 = aiCell.querySelector('.xo');
+                    xo2.textContent = currentPlayer;
                     // console.log(currentPlayer);
                     currPieces = currentPlayer == 'X' ? XPieces : OPieces;
                     // console.log(currentPlayer + "lenght " + currPieces.length, currPieces);
@@ -112,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         setTimeout(function() {
                             alert(currentPlayer + " has won");
                         }, 10); 
+                        clearInterval(intervalId)
                         return;
                     }
                     else if(checkDraw()) {
@@ -139,7 +195,82 @@ document.addEventListener("DOMContentLoaded", function() {
         // }
 
     }
-  });
+});
+
+function startTimer() {
+    let timerElement = document.getElementById('timer');
+    intervalId = setInterval(function() {
+        timerElement.textContent = `Seconds left: ` + secondsLeft;
+        //   if(moved == 1){
+        //     clearInterval(intervalId);
+        //     moved = 0;
+        //   }
+        if (secondsLeft <= 0) {
+            clearInterval(intervalId);
+            switchPlayer();
+            updateDisplayPlayer();
+            secondsLeft = secondsTimer;
+            startTimer();
+            updateDisplayPlayer();
+            
+            // switchPlayer();
+            timerElement.textContent = 'Time is up!';
+        }
+        else{
+            secondsLeft--;
+        }
+        // if(enableAI && currentPlayer == 'O'){
+        //     console.log("ai move");
+        //     emptyCells = getEmptyCells(cells);
+        //     move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        //     console.log("emptyCells",emptyCells);
+        //     console.log("move", move);
+        //     aiCell = cells[move];   
+        //     console.log("aiCell", aiCell.querySelector('.xo'));
+        //     const xo2 = aiCell.querySelector('.xo');
+        //     xo2.textContent = currentPlayer;
+        //     // console.log(currentPlayer);
+        //     currPieces = currentPlayer == 'X' ? XPieces : OPieces;
+        //     // console.log(currentPlayer + "lenght " + currPieces.length, currPieces);
+        //     if(currPieces.length >= 4) {
+            
+        //         oldIndex = currPieces[0];
+        //         currPieces.shift();
+        //         oldCell = cells[oldIndex];
+        //         clearCell(oldCell, oldIndex);
+        //         // console.log("after shift " + currPieces);
+        //     }
+        //     currPieces.push(move);
+        //     updateBoard(move);
+        //     if(checkGameWin()) {
+        //         gameOver = true;
+        //         currentPlayer == 'X' ? scoreX++ : scoreO++;
+        //         updateScoreBoard();
+        //         updateBoard(move);
+        //         setTimeout(function() {
+        //             alert(currentPlayer + " has won");
+        //         }, 10); 
+        //         clearInterval(intervalId)
+        //         return;
+        //     }
+        //     else if(checkDraw()) {
+        //         alert("The game is a Draw!");
+        //         return;
+        //     }
+        //     switchPlayer();
+        //     emptyCells = getEmptyCells(cells);
+        //     console.log("empty cells");
+        //     console.log(emptyCells);
+        // }
+    }, 1000); // Update the timer every second (1000 milliseconds)
+    
+}
+
+function stopTimer(){
+    let timerElement = document.getElementById('timer');
+    timerElement.textContent = 'Playing against AI';
+    clearInterval(intervalId);
+}
 
 function clearCell(cell, oldIndex) {
     // console.log("called clearCell")
@@ -223,8 +354,16 @@ function newGame() {
     OPieces = [];
     gameOver = false;
     currentPlayer = "X";
+    secondsLeft = secondsTimer;
+    console.log("newgame reset player", currentPlayer); 
     // document.getElementById('play-ai').disabled = false;
     updateDisplayPlayer();
+    if(!enableAI){
+        clearInterval(intervalId);
+        startTimer();
+    }
+    else stopTimer();
+    // startTimer();
 }
 
 function reset() {

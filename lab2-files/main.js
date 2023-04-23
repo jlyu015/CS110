@@ -17,7 +17,7 @@ let timerDisplay = document.getElementById("timer");
 let emptyCells = getEmptyCells(cells);
 const secondsTimer = 2;
 let secondsLeft = secondsTimer; // Set the timer to run for 5 seconds
-let moved = 0;
+let timeDraw = 0;
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -205,6 +205,10 @@ function startTimer() {
         //     clearInterval(intervalId);
         //     moved = 0;
         //   }
+        if(timeDraw == 10){
+            alert("It was a draw"); 
+            newGame();
+        }
         if (secondsLeft <= 0) {
             clearInterval(intervalId);
             switchPlayer();
@@ -217,6 +221,7 @@ function startTimer() {
             timerElement.textContent = 'Time is up!';
         }
         else{
+            timeDraw++;
             secondsLeft--;
         }
         // if(enableAI && currentPlayer == 'O'){
@@ -363,6 +368,7 @@ function newGame() {
         startTimer();
     }
     else stopTimer();
+    timeDraw = 0;
     // startTimer();
 }
 

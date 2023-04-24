@@ -1,0 +1,289 @@
+/* Feel free to edit CSS of body if you'd like. We provide you the light gray background color and font family in the body styling */
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  margin: 0;
+  background-color: #e6ecf0;
+}
+
+#header{
+  background-color:white;
+  height: 10px;
+  width: 100%;
+  position: absolute;
+  top:0;
+  left:0;
+  display: flex;
+  list-style:none;
+  z-index: 100;
+  padding:20px;
+}
+
+li{
+  offset:20px;
+  margin-right: 20px;
+  color: gray;
+  display:inline-block;
+  font-weight: bold;
+}
+li:hover{
+  cursor: pointer;
+  color:blue;
+  font-weight: bold;
+  text-decoration: underline;
+}
+#menu{
+  position: relative;
+  left:21%
+}
+@media(max-width:1300px){
+  #menu {
+    left: 10%;
+  }
+}
+#twitter-logo{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left:50%;
+  top:10px;
+}
+@media(max-width:1000px) {
+  #twitter-logo {
+    display:none;
+  }
+}
+
+#tweetButton{
+  border-radius: 30px;
+  width: 70px;
+  height: 30px;
+  position: absolute;
+  top:10px;
+  right:50px;
+  background-color: #4AB3F4;
+  color: white;
+  font-weight: bold;
+  font-size:medium;
+  border: white;
+  cursor: pointer;
+  margin-right:30px;
+}
+@media(max-width:600px) {
+  #tweetButton {
+    display:none;
+  }
+}
+@media(max-width:1200px){
+  #right-div{
+    display:none;
+  }
+  /* #tweetButton{
+    display:none;
+  } */
+}
+/* 
+@media(max-width:800px) {
+  #twitter-logo{
+    display:none;
+  }
+} */
+
+
+#wrapper{
+  background-color: #e6ecf0;
+  display: flex;
+  margin:56px auto;
+  max-width:1190px;
+}
+
+#left-div{
+  margin-top: 1.5%;
+  margin-left: 50px;
+  margin-right: 5px;
+  height: 200px;
+  width: 290px;
+  background-color: white;
+  min-width: 290px;
+}
+
+#profile-banner{
+  position: absolute;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  padding-left: 45px;
+  padding-right: 45px;
+  width:200px;
+  background-color: black;
+  z-index: 1;
+}
+
+#profile-picture img{
+  position: relative;
+  top: 60px;
+  margin-left: 25px;
+  border-radius: 50%;
+  border: solid 2px white;
+  z-index:2;
+  width:60px;
+  height:60px;
+  display: flex;
+}
+
+#profile-name{
+  position: relative;
+  top: 15px;
+  left: 100px;
+  cursor: pointer;
+}
+
+#profile-handle{
+  position: relative;
+  top: 15px;
+  left: 100px;
+  color:gray;
+}
+
+#stats-id{
+  color: gray;
+  position: relative;
+  top: 15px;
+}
+
+#stats{
+  color: rgb(178, 175, 234);
+  position: relative;
+  top: 75px;
+}
+
+th{
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+td{
+  font-weight: bold;
+  color: #4AB3F4;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+#center-div{
+  margin-top: 1.5%;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: auto;
+  width: 50%;
+}
+
+.tweet{
+  width: 580px;
+  height: 480px;
+  border: lightgray;
+}
+
+.boxes{
+  display:flex;
+  flex-direction: column;
+}
+
+.box{
+  width: 580px;
+  min-height: 51px;
+  background-color: white;
+  border-bottom: solid 1px #e6ecf0;
+}
+
+#profile-picture-tweet img{
+  position: relative;
+  left:10px;
+  top:10px;
+  border-radius: 50%;
+  border: solid 2px white;
+  width:48px;
+  height:48px;
+  display: flex;
+}
+
+#profile-name-tweet{
+  position:relative;
+  left: 75px;
+  bottom: 40px;
+}
+
+#tweet-info{
+  position:relative;
+  left: 75px;
+  bottom: 30px;
+  max-width: 80%;
+}
+
+
+
+
+
+
+#right-div{
+  margin-top: 1.5%;
+  margin-left: 5px;
+  margin-right: 60px;
+  height: 230px;
+  min-width: 290px;
+  background-color: white; 
+}
+
+#who-to-follow{
+  position: relative;
+  font-size: larger;
+  font-weight: 700;
+  margin: 5%;
+}
+
+.follow{
+  width: 240px;
+  height: 480px;
+}
+
+.follow-box{
+  width: 260px;
+  height: 80px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-bottom: solid 1px #e6ecf0;
+}
+
+#profile-name-follow{
+  position:relative;
+  left: 75px;
+  bottom: 40px;
+}
+
+#follow-button{
+  position: relative;
+  left: 75px;
+  bottom: 30px;
+  border-radius: 30px;
+  border: solid 1px #4AB3F4;
+  color: #4AB3F4;
+  height: 25px;
+  width: 90px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.gray-text{
+  color:gray;
+}
+
+/* TODO: Create CSS for your Twitter Mockup */

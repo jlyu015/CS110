@@ -10,28 +10,30 @@
   <body>
 
     <h1>Tic Tac Toe</h1>
-    <h2>Its your turn, <span class="display_player"></span>.</h2>
-
+    <h2><input type = "checkbox" id = "play-ai"> play against AI</h2>
+    <h2 >Score <br><span class = "score-board">X: 0 O: 0</span></h2>
+    <h2>Its your turn, <span class="display_player">.</span>.</h2>
+    <div id = "timer"> This is the timer</div>
     <div class="game_board">
-      <div class='row'>
+      <div class="row">
         <div class="one"><span class="xo"></span></div>
-        <div class="two"><span class="xo"></span></div>
-        <div class="three"><span class="xo"></span></div>
-      </div>
-      <div class='row'>
-        <div class="four"><span class="xo"></span></div>
-        <div class="five"><span class="xo"></span></div>
-        <div class="six"><span class="xo"></span></div>
-      </div>
-      <div class='row'>
+        <div class="four" ><span class="xo"></span></div>
         <div class="seven"><span class="xo"></span></div>
+      </div>
+      <div class="row">
+        <div class="two"><span class="xo"></span></div>
+        <div class="five"><span class="xo"></span></div>
         <div class="eight"><span class="xo"></span></div>
+      </div>
+      <div class="row">
+        <div class="three"><span class="xo"></span></div>
+        <div class="six"><span class="xo"></span></div>
         <div class="nine"><span class="xo"></span></div>
       </div>
     </div>
 
-    <button class="new_game">New Game</button>
-    <button class="reset">Reset</button>
+    <button class="new_game" onclick = "newGame()">New Game</button>
+    <button class="reset" onclick = "reset()">Reset</button>
   </body>
 
 

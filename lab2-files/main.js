@@ -205,7 +205,7 @@ function startTimer() {
         //     clearInterval(intervalId);
         //     moved = 0;
         //   }
-        if(timeDraw == 10){
+        if(timeDraw == 120){
             alert("It was a draw"); 
             newGame();
         }

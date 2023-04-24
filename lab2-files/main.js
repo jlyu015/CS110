@@ -29,13 +29,13 @@ document.addEventListener("DOMContentLoaded", function() {
         enableAI = AIcheck.checked;
         console.log("enableAI",enableAI);
         newGame();
-        if(this.checked){
-            stopTimer();
-        }
-        else{
+        // if(this.checked){
+        //     stopTimer();
+        // }
+        // else{
             clearInterval(intervalId);
             startTimer();
-        }
+        // }
         // if(enableAI && currentPlayer == 'O'){
         //     console.log("ai move");
         //     emptyCells = getEmptyCells(cells);
@@ -205,7 +205,7 @@ function startTimer() {
         //     clearInterval(intervalId);
         //     moved = 0;
         //   }
-        if(timeDraw == 10){
+        if(timeDraw == 120){
             alert("It was a draw"); 
             newGame();
         }
@@ -219,54 +219,55 @@ function startTimer() {
             
             // switchPlayer();
             timerElement.textContent = 'Time is up!';
+            if(enableAI && currentPlayer == 'O'){
+                console.log("ai move");
+                emptyCells = getEmptyCells(cells);
+                move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                console.log("emptyCells",emptyCells);
+                console.log("move", move);
+                aiCell = cells[move];   
+                console.log("aiCell", aiCell.querySelector('.xo'));
+                const xo2 = aiCell.querySelector('.xo');
+                xo2.textContent = currentPlayer;
+                // console.log(currentPlayer);
+                currPieces = currentPlayer == 'X' ? XPieces : OPieces;
+                // console.log(currentPlayer + "lenght " + currPieces.length, currPieces);
+                if(currPieces.length >= 4) {
+                
+                    oldIndex = currPieces[0];
+                    currPieces.shift();
+                    oldCell = cells[oldIndex];
+                    clearCell(oldCell, oldIndex);
+                    // console.log("after shift " + currPieces);
+                }
+                currPieces.push(move);
+                updateBoard(move);
+                if(checkGameWin()) {
+                    gameOver = true;
+                    currentPlayer == 'X' ? scoreX++ : scoreO++;
+                    updateScoreBoard();
+                    updateBoard(move);
+                    setTimeout(function() {
+                        alert(currentPlayer + " has won");
+                    }, 10); 
+                    clearInterval(intervalId)
+                    return;
+                }
+                else if(checkDraw()) {
+                    alert("The game is a Draw!");
+                    return;
+                }
+                switchPlayer();
+                emptyCells = getEmptyCells(cells);
+                console.log("empty cells");
+                console.log(emptyCells);
+            }
         }
         else{
             timeDraw++;
             secondsLeft--;
         }
-        // if(enableAI && currentPlayer == 'O'){
-        //     console.log("ai move");
-        //     emptyCells = getEmptyCells(cells);
-        //     move = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-        //     console.log("emptyCells",emptyCells);
-        //     console.log("move", move);
-        //     aiCell = cells[move];   
-        //     console.log("aiCell", aiCell.querySelector('.xo'));
-        //     const xo2 = aiCell.querySelector('.xo');
-        //     xo2.textContent = currentPlayer;
-        //     // console.log(currentPlayer);
-        //     currPieces = currentPlayer == 'X' ? XPieces : OPieces;
-        //     // console.log(currentPlayer + "lenght " + currPieces.length, currPieces);
-        //     if(currPieces.length >= 4) {
-            
-        //         oldIndex = currPieces[0];
-        //         currPieces.shift();
-        //         oldCell = cells[oldIndex];
-        //         clearCell(oldCell, oldIndex);
-        //         // console.log("after shift " + currPieces);
-        //     }
-        //     currPieces.push(move);
-        //     updateBoard(move);
-        //     if(checkGameWin()) {
-        //         gameOver = true;
-        //         currentPlayer == 'X' ? scoreX++ : scoreO++;
-        //         updateScoreBoard();
-        //         updateBoard(move);
-        //         setTimeout(function() {
-        //             alert(currentPlayer + " has won");
-        //         }, 10); 
-        //         clearInterval(intervalId)
-        //         return;
-        //     }
-        //     else if(checkDraw()) {
-        //         alert("The game is a Draw!");
-        //         return;
-        //     }
-        //     switchPlayer();
-        //     emptyCells = getEmptyCells(cells);
-        //     console.log("empty cells");
-        //     console.log(emptyCells);
-        // }
+        
     }, 1000); // Update the timer every second (1000 milliseconds)
     
 }
@@ -363,11 +364,11 @@ function newGame() {
     console.log("newgame reset player", currentPlayer); 
     // document.getElementById('play-ai').disabled = false;
     updateDisplayPlayer();
-    if(!enableAI){
+    // if(!enableAI){
         clearInterval(intervalId);
         startTimer();
-    }
-    else stopTimer();
+    // }
+    // else stopTimer();
     timeDraw = 0;
     // startTimer();
 }

@@ -1,91 +1,103 @@
-const url = "50.21.190.71/get_tweets";
+$(document).ready(function(){
+    const url = "50.21.190.71/get_tweets";
 
-var duplicatesArr = [];
-var tweetsArr = [];
+    var duplicatesArr = [];
+    var tweetsArr = [];
 
-function autoRefresh(){
-    var isChecked = document.getElementById("feedRefresh").isChecked;
+    function autoRefresh(){
+        var isChecked = document.getElementById("feedRefresh").checked;
 
-    if(isChecked == false){
-        time = setInterval(function(){
-            getRequest();
+        if(isChecked == false){
+            time = setInterval(function(){
+                getRequest();
 
-        }, 10000);
+            }, 10000);
 
-    } else if(isChecked == true){
-        clearInterval(time);
+        } else if(isChecked == true){
+            clearInterval(time);
+        }
     }
-}
 
-autoRefresh();
-document.getElementById('feedRefresh').addEventListener('click', autoRefresh);
+    autoRefresh();
+    document.getElementById('feedRefresh').addEventListener('click', autoRefresh);
 
-getRequest();
+    getRequest();
 
-function getRequest(){
-    fetch(url) 
-    .then(res => res.json()) .then(data => {
-        removeDuplicates(duplicatesArr);
-        
-        //set the center div to be the tweets
+    function getRequest(){
+        fetch(url) 
+        .then(res => res.json()) .then(data => {
+            removeDuplicates(duplicatesArr);
+            
+            //set the center div to be the tweets
+            const tweetContainer = document.getElementById("tweet-container");
+            tweetContainer.innerHTML = "";
+             
+            //when the search is activated:
+            const searchValue = document.getElementById("searchBar").value;
+            const filtered = data.filter(tweet => tweet.text.includes(searchValue));
 
-        //when the search is activated:
-        // search all tweets for matching values
-        // set the current tweets to be ones that match search value
-    })
-    .catch(err => {
+            // search all tweets for matching values
+            filtered.forEach(tweet =>{
+                const tweetBox = document.createElement("div");
+                tweetBox.className = "box";
+                tweetBox.innerHTML =
+            });
+            // set the current tweets to be ones that match search value
+        })
+        .catch(err => {
 
-    console.log(err)})
-}
+        console.log(err)})
+    }
 
-function removeDuplicates(duplicatesDataArr){
-    //for all of new tweets
-    // check the array of all previous tweets for any duplicates
-    // remove duplicates
-    // if not a dulpicate, add it to list of all previous tweets
+    function removeDuplicates(duplicatesDataArr){
+        //for all of new tweets
+        // check the array of all previous tweets for any duplicates
+        // remove duplicates
+        // if not a dulpicate, add it to list of all previous tweets
 
-}
+    }
 
-function searchArray(dataArr, value){
-    // go through earch tweet, and check if there is a matching value in 
-    // return array of all matching tweets
+    function searchArray(dataArr, value){
+        // go through earch tweet, and check if there is a matching value in 
+        // return array of all matching tweets
 
-}
+    }
 
-function appendTweets(dataArrUnsort){
-    //get the content-center element. we want to add tweets to this
+    function appendTweets(dataArrUnsort){
+        //get the content-center element. we want to add tweets to this
 
-    // suggest emptying the current tweets at some point
+        // suggest emptying the current tweets at some point
 
-    // sort the array of tweets chronologically
+        // sort the array of tweets chronologically
 
-    // for each tweet
+        // for each tweet
 
-        //create a div that you can append to content-center
+            //create a div that you can append to content-center
 
-        //we want to include the profile picture
-            //can check if the image exists
-                //var hyyp = new XMLHttpRequest);
-                //http.open("HEAD", imgURL)
-                //http.send();
-                //if (http.status != 404)
-                    //Success!
-                    //Add the img to the tweet we are creating
-                //else
-                    //append a default image
+            //we want to include the profile picture
+                //can check if the image exists
+                    //var hyyp = new XMLHttpRequest);
+                    //http.open("HEAD", imgURL)
+                    //http.send();
+                    //if (http.status != 404)
+                        //Success!
+                        //Add the img to the tweet we are creating
+                    //else
+                        //append a default image
 
-        
-        //create all of the additional pieces of information
-            //date (formatted)
-            //tweet contents
-            //username
+            
+            //create all of the additional pieces of information
+                //date (formatted)
+                //tweet contents
+                //username
 
-        //you can create all of these div elements witrh jquery
-        // and then manually add them to the tweet div
+            //you can create all of these div elements witrh jquery
+            // and then manually add them to the tweet div
 
-        
+            
 
-}
+    }
+});
 
 
 const tweetContainer = document.getElementById('tweet boxes');

@@ -2,14 +2,31 @@ $(document).ready(function(){
     const url = "http://50.21.190.71/get_tweets";
 
     var time;
+    var paused = false;
+    var refreshFeedClicked = document.getElementById("feedRefresh") ;
+    var pauseFeed = document.getElementById("feed-refresh-box");
+
+    //reset default values when refreshed
+    document.getElementById("searchBar").value = ""; 
+    pauseFeed.checked = false;
+    tweets = document.getElementById("tweet-container");
+    tweets.innerHTML = "";
+
 
     function autoRefresh(){
-        time = setInterval(function(){
-            getRequest();
+        time = setInterval(async function(){
+            if(!paused) {
+                getRequest();
+            }
         }, 10000);
 
-        var refreshFeedClicked = document.getElementById("feedRefresh");
 
+        // console.log(pauseFeed);
+
+        pauseFeed.addEventListener("change", function() {
+            paused = this.checked;
+            console.log("paused: ", paused);
+        });
         refreshFeedClicked.addEventListener('click', function(){
             console.log("clicked!");
             clearInterval(time);
@@ -18,47 +35,61 @@ $(document).ready(function(){
         });
 
     }
-});
 
-    autoRefresh();
 
     
 
-function getRequest(){
-    fetch(url) 
-    .then(res => res.json()) .then(data => {
-        removeDuplicates(duplicatesArr);
-        
-        //set the center div to be the tweets
-        const tweetContainer = document.getElementById("tweet-container");
-        tweetContainer.innerHTML = "";
-            
-        //when the search is activated:
-        const searchValue = document.getElementById("searchBar").value;
-        const filtered = data.filter(tweet => tweet.text.includes(searchValue));
-        
+    
 
-        // search all tweets for matching values
-        filtered.forEach(tweet =>{
-            const tweetBox = document.createElement("div");
-            tweetBox.className = "box";
-            tweetBox.innerHTML = '';
-        });
-        // set the current tweets to be ones that match search value
-    })
-    .catch(err => {
+    function getRequest(){
+        fetch(url) 
+        .then(res => res.json()) .then(data => {
+            // console.log(data);
+            newData = removeDuplicates(data);
+            console.log(newData);
 
-    console.log(err)})
+                
+            //get text from search bar
+            const searchValue = document.getElementById("searchBar").value;
+            const filtered = data.filter(tweet => tweet.text.includes(searchValue));
+            console.log("filtered", filtered);
+
+            //sort by chronological order
+            filtered.sort((a,b) => new Date(a.date) - new Date(b.date));
+            console.log("after date sort: ", filtered);
+            // search all tweets for matching values
+            appendTweets(filtered);
+            // filtered.forEach(tweet =>{
+            //     const tweetBox = document.createElement("div");
+            //     tweetBox.className = "box";
+            //     tweetBox.innerHTML = '';
+            // });
+
+        })
+        .catch(err => {
+
+        console.log(err)})
+    }
+    autoRefresh();
+    getRequest();
+
+});
+function removeDuplicates(data){
+    const result = [];
+    for(let i = 0; i < data.length; i++) {
+        if(!isFound(result, data[i].user, data[i].text)) {
+            result.push(data[i]);
+        }
+    }
+    return result;
 }
-
-getRequest();
-
-function removeDuplicates(duplicatesDataArr){
-    //for all of new tweets
-    // check the array of all previous tweets for any duplicates
-    // remove duplicates
-    // if not a dulpicate, add it to list of all previous tweets
-
+function isFound(result, user, text) {
+    for(let i = 0; i < result.length; i++) {
+        if(result[i].text === text && result[i].user === user) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function searchArray(dataArr, value){
@@ -67,14 +98,70 @@ function searchArray(dataArr, value){
 
 }
 
-function appendTweets(dataArrUnsort){
+function appendTweets(data){
     //get the content-center element. we want to add tweets to this
-
+    tweets = document.getElementById("tweet-container");
     // suggest emptying the current tweets at some point
-
-    // sort the array of tweets chronologically
+    // console.log(tweets)
 
     // for each tweet
+    data.forEach(tweet => {
+        const tweetDiv = document.createElement("div");
+        tweetDiv.className = "box";
+        
+        profilePictureDiv = document.createElement("div");
+        profilePictureDiv.className = "profile-picture-tweet";
+
+        profilePicture = document.createElement("img");
+        profilePicture.alt = "profile picture"
+
+        var http = new XMLHttpRequest;
+        http.open("HEAD", tweet.avatar)
+        // console.log(tweet.avatar);
+        http.send();
+        if(http.status != 404) {
+            //add img to src
+            profilePicture.src = tweet.avatar;
+        }
+        else {
+            //use default rat profile pic
+            profilePicture.src = "images/ratatouille.jpg"
+        }
+        profilePictureDiv.append(profilePicture);
+        
+        profileNameDiv = document.createElement("div");
+        profileNameDiv.className = "profile-name-tweet";
+        //<strong style="display: inline;">Remy </strong><p class="gray-text" style="display: inline;">@remy Nov 19</p>
+
+        profileName = document.createElement("strong");
+        profileName.style - "display: inline;"
+        profileName.innerHTML =tweet.user_name;
+        //maybe do this in css
+        p = document.createElement("p");
+        p.className = "gray-text"
+        p.style = "display: inline;";
+        p.innerHTML = "   @" + tweet.user_name + " date";
+
+        
+        profileName.append(p);
+        profileNameDiv.append(profileName);
+        date = tweet.date;
+        // profileName.innerHTML += "date" + "</p>";
+
+        tweetText = document.createElement("div");
+        tweetText.className = "tweet-info";
+        tweetText.innerHTML = tweet.text;
+
+        // console.log(profilePicture.innerHTML);
+        // console.log(profileName.innerHTML);
+        // console.log(tweetText.innerHTML);
+
+        tweetDiv.append(profilePictureDiv);
+        tweetDiv.append(profileNameDiv);
+        tweetDiv.append(tweetText);
+        tweets.append(tweetDiv);
+        // console.log(tweet.user_name);
+    });
 
         //create a div that you can append to content-center
 
@@ -101,7 +188,6 @@ function appendTweets(dataArrUnsort){
         
 
 }
-
 
 
 // const tweetContainer = document.getElementById('tweet boxes');

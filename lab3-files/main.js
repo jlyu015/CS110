@@ -113,22 +113,41 @@ function appendTweets(data){
         profilePictureDiv.className = "profile-picture-tweet";
 
         profilePicture = document.createElement("img");
-        profilePicture.alt = "profile picture"
+        profilePicture.alt = "profile picture";
+        format(profilePicture);
 
-        var http = new XMLHttpRequest;
-        http.open("HEAD", tweet.avatar)
-        // console.log(tweet.avatar);
+        var http = new XMLHttpRequest();
+        http.open("HEAD", tweet.avatar, false);
+        // http.onload = function() {
+        //     if (http.status === 200) {
+        //         profilePicture.src = tweet.avatar;
+        //     } else {
+        //         profilePicture.src = "images/ratatouille.jpg";
+        //     }
+        //     profilePictureDiv.append(profilePicture);
+        // };
+        // http.onerror = function() {
+        //     profilePicture.src = "images/ratatouille.jpg";
+        //     profilePictureDiv.append(profilePicture);
+        // };
+        console.log("before",http.status);
         http.send();
-        if(http.status != 404) {
-            //add img to src
+        console.log("after",http.status);
+        if(http.status != 404){
             profilePicture.src = tweet.avatar;
         }
-        else {
-            //use default rat profile pic
-            profilePicture.src = "images/ratatouille.jpg"
+        else{
+            console.log("are you in here");
+            profilePicture.src = "images/ratatouille.jpg";
         }
+
+
+
+        // profilePicture.addEventListener("error", function(){
+        //     profilePicture.src = "image/ratatouille.jpg";
+        // });
+
         profilePictureDiv.append(profilePicture);
-        
         profileNameDiv = document.createElement("div");
         profileNameDiv.className = "profile-name-tweet";
         //<strong style="display: inline;">Remy </strong><p class="gray-text" style="display: inline;">@remy Nov 19</p>
@@ -188,6 +207,8 @@ function appendTweets(data){
         
 
 }
+
+
 
 
 // const tweetContainer = document.getElementById('tweet boxes');

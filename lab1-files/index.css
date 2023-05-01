@@ -93,7 +93,7 @@ li:hover{
   background-color: #e6ecf0;
   display: flex;
   margin:56px auto;
-  max-width:1190px;
+  max-width:1500px;
 }
 
 #left-div{
@@ -117,7 +117,7 @@ li:hover{
   z-index: 1;
 }
 
-#profile-picture img{
+.profile-picture img{
   position: relative;
   top: 60px;
   margin-left: 25px;
@@ -186,7 +186,10 @@ td{
   height: auto;
   width: 50%;
 }
-
+#searchBar, #feedRefresh, #feed-refresh-box {
+  display:inline-block;
+  vertical-align: middle;
+}
 .tweet{
   width: 580px;
   height: 480px;
@@ -200,12 +203,12 @@ td{
 
 .box{
   width: 580px;
-  min-height: 51px;
+  min-height: 80px;
   background-color: white;
+  padding-bottom: 50px;
   border-bottom: solid 1px #e6ecf0;
 }
-
-#profile-picture-tweet img{
+.profile-picture-tweet img{
   position: relative;
   left:10px;
   top:10px;
@@ -216,17 +219,29 @@ td{
   display: flex;
 }
 
-#profile-name-tweet{
-  position:relative;
-  left: 75px;
-  bottom: 40px;
+.profile-picture-tw {
+  position: relative;
+  left:10px;
+  top:10px;
+  border-radius: 50%;
+  border: solid 2px white;
+  width:48px;
+  height:48px;
+  display: flex;
 }
-
-#tweet-info{
+.tweet-info{
   position:relative;
   left: 75px;
   bottom: 30px;
   max-width: 80%;
+}
+
+
+
+.profile-name-tweet{
+  position:relative;
+  left: 75px;
+  bottom: 40px;
 }
 
 

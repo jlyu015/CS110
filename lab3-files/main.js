@@ -1,3 +1,4 @@
+dataArr = [];
 $(document).ready(function(){
     const url = "http://50.21.190.71/get_tweets";
 
@@ -11,7 +12,7 @@ $(document).ready(function(){
     pauseFeed.checked = false;
     tweets = document.getElementById("tweet-container");
     tweets.innerHTML = "";
-
+    dataArr = [];
 
     function autoRefresh(){
         time = setInterval(async function(){
@@ -45,14 +46,15 @@ $(document).ready(function(){
         fetch(url) 
         .then(res => res.json()) .then(data => {
             // console.log(data);
-            newData = removeDuplicates(data);
-            console.log(newData);
+            dataArr.push(...data);//extend dataArr with newly fetched data
+            newData = removeDuplicates(dataArr);
+            // console.log(newData);
 
                 
             //get text from search bar
             const searchValue = document.getElementById("searchBar").value;
-            const filtered = data.filter(tweet => tweet.text.includes(searchValue));
-            console.log("filtered", filtered);
+            const filtered = newData.filter(tweet => tweet.text.includes(searchValue));
+            console.log("filtered by",searchValue, filtered);
 
             //sort by chronological order
             filtered.sort((a,b) => new Date(a.date) - new Date(b.date));
@@ -103,7 +105,7 @@ function appendTweets(data){
     tweets = document.getElementById("tweet-container");
     // suggest emptying the current tweets at some point
     // console.log(tweets)
-
+    tweets.innerHTML = "";
     // for each tweet
     data.forEach(tweet => {
         const tweetDiv = document.createElement("div");
@@ -113,20 +115,27 @@ function appendTweets(data){
         profilePictureDiv.className = "profile-picture-tweet";
 
         profilePicture = document.createElement("img");
-        profilePicture.alt = "profile picture"
+        profilePicture.alt = "profile picture";
+        format(profilePicture);
 
-        var http = new XMLHttpRequest;
-        http.open("HEAD", tweet.avatar)
-        // console.log(tweet.avatar);
+        profilePicture.src = "images/ratatouille.jpg";
+
+        var http = new XMLHttpRequest();
+        http.open("HEAD", tweet.avatar, false);
+
+        // console.log("before",http.status);
         http.send();
-        if(http.status != 404) {
-            //add img to src
+        // console.log("after",http.status);
+        if(http.status != 404){
             profilePicture.src = tweet.avatar;
         }
-        else {
-            //use default rat profile pic
-            profilePicture.src = "images/ratatouille.jpg"
+        else{
+            // console.log("are you in here");
+            profilePicture.src = "images/ratatouille.jpg";
         }
+        
+
+
         profilePictureDiv.append(profilePicture);
         
         profileNameDiv = document.createElement("div");
@@ -134,18 +143,21 @@ function appendTweets(data){
         //<strong style="display: inline;">Remy </strong><p class="gray-text" style="display: inline;">@remy Nov 19</p>
 
         profileName = document.createElement("strong");
-        profileName.style - "display: inline;"
+        profileName.style = "display: inline;"
         profileName.innerHTML =tweet.user_name;
         //maybe do this in css
         p = document.createElement("p");
         p.className = "gray-text"
         p.style = "display: inline;";
-        p.innerHTML = "   @" + tweet.user_name + " date";
+        date = new Date(tweet.date);
+        formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+        
+        p.innerHTML = "   @" + tweet.user_name +"\t" +formattedDate;
 
         
         profileName.append(p);
         profileNameDiv.append(profileName);
-        date = tweet.date;
+
         // profileName.innerHTML += "date" + "</p>";
 
         tweetText = document.createElement("div");
@@ -189,7 +201,17 @@ function appendTweets(data){
 
 }
 
+function format(p) {
+    p.style.position = "relative";
+    p.style.left = "10px";
+    p.style.top = "10px";
+    p.style.borderRadius = "50%";
+    p.style.border = "solid 2px white";
+    p.style.width = "48px";
+    p.style.height = "48px";
+    p.style.display = "flex";
 
+}
 // const tweetContainer = document.getElementById('tweet boxes');
 
 // /**

@@ -11,8 +11,10 @@ function App() {
     setComments([...comments, comment]);
   } 
 
-  const addReply = (reply) => {
+  const addReply = (reply, depth) => {
     const newComments = [...comments];
+
+
     //something here
   }
 
@@ -26,7 +28,7 @@ function App() {
           <NewPost addComment = {addComment}></NewPost>
         </div>
         <div className="commentContainer">
-          {customElements.map((comment)=> (
+          {comments.map((comment)=> (
             <Comment addComment = {addReply} comment={comment}></Comment>
           ))}
         </div>

@@ -1,11 +1,16 @@
-import React from "react";
+import {userState} from "react";
 
-function NewPost() {
-
+function NewPost(props) {
+    
 
     return (
         <div className="NewPost">
-            this is NewPost
+            <input id = "userName" type="text"/>
+            <input id = "textContent" type="text"/>
+            <button onClick={() => {
+                let userName = document.getElementById("userName").value;
+                let textContent = document.getElementById("textContent").value;
+            }}> submit </button>
         </div>
     );
 }

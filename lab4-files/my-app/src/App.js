@@ -4,6 +4,7 @@ import {useState} from "react";
 
 import Comment from "./comment";
 import NewPost from './post';
+import Voter from './voter';
 
 function App() {
   const [comments, setComments] = useState([])
@@ -30,7 +31,10 @@ function App() {
         <div className="commentContainer">
           {comments.map((comment)=> (
             <Comment addComment = {addReply} comment={comment}></Comment>
+
           ))}
+            <Voter/>
+            <Voter/>
         </div>
       </header>
     </div>

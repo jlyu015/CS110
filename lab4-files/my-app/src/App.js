@@ -1,44 +1,33 @@
 import logo from './logo.svg';
 import './App.css';
-import React, {useState} from 'react';
-import NewPost from './NewPost';
-import Comment from './comment';
+import {useState} from "react";
+
+import Comment from "./comment";
+import NewPost from './post';
 
 function App() {
-  const[comments, setComments] = useState([]);
+  const [comments, setComments] = useState([])
+  const addComment = (comment) => {
+    setComments([...comments, comment]);
+  } 
 
-  const addComment = (name, text) => {
-    if(name && text){
-      const newComment = { name, text, replies: []};
-      setComments([newComment, ...comments]);
-    }
-  };
-
-  const addReply = (name, text, commentIndex, replyIndex) => {
-    if (name && text) {
-      const newReply = { name, text };
-      const updatedComments = [...comments];
-      if (replyIndex !== undefined) {
-        updatedComments[commentIndex].replies[replyIndex].replies.push(newReply);
-      } else {
-        updatedComments[commentIndex].replies.push(newReply);
-      }
-      setComments(updatedComments);
-    }
-  };
+  const addReply = (reply) => {
+    const newComments = [...comments];
+    //something here
+  }
 
   return (
     <div className="App">
       <header className="App-header">
-        <div className='postContainer'>
-          <div id='title'>
-            New Post
+        <div className = "postContainer">
+          <div id = "title">
+            new post
           </div>
-          <NewPost addComment={addComment}></NewPost>
+          <NewPost addComment = {addComment}></NewPost>
         </div>
-        <div className='commentContainer'>
-          {comments.map((comment) => (
-            <Comment addComment ={addReply} comment={comment}></Comment>
+        <div className="commentContainer">
+          {customElements.map((comment)=> (
+            <Comment addComment = {addReply} comment={comment}></Comment>
           ))}
         </div>
       </header>

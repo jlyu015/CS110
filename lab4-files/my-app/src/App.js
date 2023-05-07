@@ -3,7 +3,7 @@ import './App.css';
 import {useState} from "react";
 
 import Comment from "./comment";
-import NewPost from './post';
+import NewPost from './NewPost';
 import Voter from './voter';
 
 function App() {

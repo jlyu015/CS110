@@ -11,10 +11,10 @@ function Comment(props) {
       setComments([...comments, comment]);
     } 
     const addReply = (reply, depth) => {
-        if(props.depth < 3){
-            props.addReply(reply);
-            reply.depth = depth + 1;
-        }
+        // if(props.depth < 3){
+        //     props.addReply(reply);
+        //     reply.depth = depth + 1;
+        // }
     }
     const toggleShowPost = () => {
         setShow(!show);
@@ -30,12 +30,12 @@ function Comment(props) {
             
             <Voter/>
             <div className = "reply button">
-                <button onClick={()=>setShow(!show)}>reply {!show? "show":"hide"}</button>
+                {props.depth < 3 && <button onClick={()=>setShow(!show)}>reply {!show? "show":"hide"}</button>}
             </div>
             {show && <NewPost addComment = {addComment}/>}
             <div className="commentContainer">
                 {comments.map((comment)=> (
-                    <Comment addComment = {addReply} comment={comment} ></Comment>
+                    <Comment addComment = {addReply} comment={comment} depth = {props.depth + 1}></Comment>
                 ))}
             </div>
         </div>

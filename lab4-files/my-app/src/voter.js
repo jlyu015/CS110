@@ -16,7 +16,7 @@ export default function Voter(props) {
                 > ^ </button>
             </div>
             
-            <div className="voter-score">{score_var}</div>
+            <div className="voter-score"> {score_var} </div>
 
             <div className="voter-button">
                 <button onClick={

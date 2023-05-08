@@ -29,15 +29,16 @@ function Comment(props) {
             </div>
             
             <Voter/>
-            <div className = "reply button">
-                {props.depth < 3 && <button onClick={()=>setShow(!show)}>reply {!show? "show":"hide"}</button>}
+            <div>
+                {props.depth < 3 && <button className='reply-button' onClick={()=>setShow(!show)}>reply {!show? "":""}</button>}
             </div>
-            {show && <NewPost addComment = {addComment}/>}
+            
             <div className="commentContainer">
                 {comments.map((comment)=> (
                     <Comment addComment = {addReply} comment={comment} depth = {props.depth + 1}></Comment>
                 ))}
             </div>
+            {show && <NewPost addComment = {addComment}/>}
         </div>
 
     );

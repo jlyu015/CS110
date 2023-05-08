@@ -22,6 +22,9 @@ function NewPost(props) {
     setText(event.target.value);
   }
 
+  const buttonStyle = {
+    backgroundColor: name && text ? '#4281fa' : null
+  }
 
   return (
     <div className ="post">
@@ -31,7 +34,7 @@ function NewPost(props) {
         <div className='post-text'>
             <input type="text" value={text} onChange={nextChange} placeholder='Write a new post' />
         </div>
-        <button onClick={submit}>Post</button>
+        <button className='post-button'  style = {buttonStyle} onClick={submit}>Post</button>
     </div>
   );
 }

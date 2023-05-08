@@ -9,10 +9,8 @@
   align-items: flex-start;
   width: 800px;
   height: auto;
-}
-
-.commentid{
-  
+  padding-left: 10px;
+  border-left: 1px solid black;
 }
 
 .Comment {
@@ -22,7 +20,7 @@
 
 .Voter {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
 }
 .App-header {
@@ -49,13 +47,10 @@ input[type="text"] {
 .postContainer{
   border: 1px solid black;
   padding: 10px;
+  margin: 20px;
 }
 
 
-.commentContainer{
-  /* border: 1px solid black; */
-  padding: 10px;
-}
 
 @keyframes App-logo-spin {
   from {
@@ -68,8 +63,21 @@ input[type="text"] {
 
 .Voter{
   position: relative;
-  left: 400px;
-  top: 40px;
+  left: 375px;
+  top: 50px;
+  max-height: 10px;
+}
+.voter-button{
+  position: relative;
+  bottom: 140px;
+}
+
+.voter-button button{
+  /* margin: 0.25rem 0; */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color:gray;
 }
 
 .comment-name{
@@ -97,21 +105,29 @@ input[type="text"] {
   box-sizing: border-box;
 }
 
-.voter-button{
-  position: relative;
-  bottom: 100px;
-  left: 350px;
-}
 
 .voter-score{
   position: relative;
-  bottom: 95px;
-  left: 350px;
+  bottom: 135px;
 }
 
-.reply button{
-  display: block;
-  position: relative;
-  bottom: 40px;
+.reply-button {
+  font-size: 25px;
+  background-color: white;
+  color: gray;
+  border: white;
 }
 
+.reply-button:hover {
+  cursor: pointer;
+  border: gray 1px solid;
+
+}
+
+.post-button {
+  background-color:#afc3f9;
+  border-radius: 10%;
+  color: white;
+  height:30px;
+  width:100px;
+}

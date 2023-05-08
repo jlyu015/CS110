@@ -15,6 +15,10 @@ function Comment(props) {
         //     props.addReply(reply);
         //     reply.depth = depth + 1;
         // }
+        // if(props.depth < 3){
+        //     props.addReply(reply);
+        //     reply.depth = depth + 1;
+        // }
     }
     const toggleShowPost = () => {
         setShow(!show);

@@ -1,41 +1,45 @@
 import React, { useState } from 'react';
+import NewPost from './NewPost';
+import Voter from './voter';
 
-
-function Comment() {
-    const [name, setName] = useState('');
-    const [text, setText] = useState('');
-    const [replies, setReplies] = useState([]);
-
-    handleNameChange = (event) =>{
-        setName(event.target.value);
+function Comment(props) {
+    console.log("comment", props)
+    const [show, setShow] = useState(false)
+    const [comments, setComments] = useState([])
+    const [depth, setDepth] = useState(0);
+    const addComment = (comment) => {
+      setComments([...comments, comment]);
+    } 
+    const addReply = (reply, depth) => {
+        if(props.depth < 3){
+            props.addReply(reply);
+            reply.depth = depth + 1;
+        }
     }
-
-    handleTextChange = (event) =>{
-        setText(event.target.value);
+    const toggleShowPost = () => {
+        setShow(!show);
     }
-
-    handleReply = (event) => {
-        if()
-    }
-
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const newReply = {
-            name: name,
-            text: text,
-            replies: [],
-        };
-        
-        setName('');
-        setText('');
-
-    };
-
     return (
         <div className="Comment">
-            this is comment
+            <div className="comment-name">
+                {props.comment.name}
+            </div>
+            <div className="comment-text">
+                {props.comment.text}
+            </div>
+            
+            <Voter/>
+            <div className = "reply button">
+                <button onClick={()=>setShow(!show)}>reply {!show? "show":"hide"}</button>
+            </div>
+            {show && <NewPost addComment = {addComment}/>}
+            <div className="commentContainer">
+                {comments.map((comment)=> (
+                    <Comment addComment = {addReply} comment={comment} ></Comment>
+                ))}
+            </div>
         </div>
+
     );
 }
 

@@ -6,20 +6,27 @@ export default function Voter(props) {
 
     return(
         <div className="Voter">
-            <button onClick={
-                function() {
-                    set_score_var(score_var+1);
-                    console.log(score_var);
+            <div className="voter-button">
+                <button onClick={
+                    function() {
+                        set_score_var(score_var+1);
+                        console.log(score_var);
+                    }
                 }
-            }
-            > ^ </button>
-            <div>{score_var}</div>
-            <button onClick={
-                function() {
-                    set_score_var(score_var-1);
-                    console.log(score_var);
-                }
-            }> v </button>
+                > ^ </button>
+            </div>
+            
+            <div className="voter-score">{score_var}</div>
+
+            <div className="voter-button">
+                <button onClick={
+                    function() {
+                        set_score_var(score_var-1);
+                        console.log(score_var);
+                    }
+                }> v </button>
+            </div>
+            
         </div>
     )
 }

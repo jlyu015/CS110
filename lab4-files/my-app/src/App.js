@@ -12,29 +12,25 @@ function App() {
     setComments([...comments, comment]);
   } 
 
-  const addReply = (reply, depth) => {
-    const newComments = [...comments];
-
-
-    //something here
+  const addReply = (reply) => {
+    
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <div className = "postContainer">
-          <div id = "title">
-            new post
+          <div className = "title">
+            New Post
           </div>
           <NewPost addComment = {addComment}></NewPost>
         </div>
         <div className="commentContainer">
           {comments.map((comment)=> (
-            <Comment addComment = {addReply} comment={comment}></Comment>
-
+            <div className='commentid'>
+              <Comment addComment = {addReply} comment={comment} depth = {0}></Comment>
+            </div>
           ))}
-            <Voter/>
-            <Voter/>
         </div>
       </header>
     </div>

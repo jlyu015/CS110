@@ -28,7 +28,7 @@ function App() {
         <div className="commentContainer">
           {comments.map((comment)=> (
             <div className='commentid'>
-              <Comment addComment = {addReply} comment={comment} depth = {0}></Comment>
+              <Comment addComment = {addReply} comment={comment} depth = {3}></Comment>
             </div>
           ))}
         </div>

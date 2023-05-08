@@ -1,7 +1,25 @@
-import {userState} from "react";
+import {useState, useTransition, userState} from "react";
 
 function NewPost(props) {
-    
+    const [name, setName] = useState('');
+    const [text, setText] = useState('');
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        if (name && text) {
+            props.addComment({name, text, replies: []});
+            setName('');
+            setText('');
+        }
+    }
+
+    const handleNameChange = (event) => {
+        setName(event.target.value);
+    }
+      
+    const handleTextChange = (event) => {
+        setText(event.target.value);
+    }
 
     return (
         <div className="NewPost">

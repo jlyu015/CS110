@@ -3,8 +3,22 @@
 }
 
 
+.commentContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.Comment {
+  flex: 1;
+  margin-right: 10px;
+}
+
 .Voter {
-  color:black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .App-header {
   background-color: white;

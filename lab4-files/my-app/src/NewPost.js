@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 function NewPost(props) {
+  console.log(props)
   const [name, setName] = useState('');
   const [text, setText] = useState('');
 
@@ -25,10 +26,10 @@ function NewPost(props) {
   return (
     <div className ="post">
         <div className='post-name'>
-            <input type="text" value={name} onChange={handleNameChange} />
+            <input type="text" value={name} onChange={handleNameChange} placeholder='Name...'/>
         </div>
         <div className='post-text'>
-            <input type="text" value={text} onChange={handleTextChange} />
+            <input type="text" value={text} onChange={handleTextChange} placeholder='Write a new post' />
         </div>
         <button onClick={handleSubmit}>Post</button>
     </div>

@@ -13,13 +13,37 @@ app.use(cors());
 //Configuring body parser middlemare
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    next();
+  });
+app.get('/new-book.html', (req, res) => {
+    res.sendFile(__dirname + '/new-book.html');
+  });
 
+app.get('/book-list.html', (req, res) => {
+    res.sendFile(__dirname + '/book-list.html');
+});
+
+app.get('/book-list.js', (req, res) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.sendFile(__dirname + '/book-list.js');
+  });
 app.post('/book', (req, res) => {
     const book = req.body;
 
-    console.log("book added: ", book);
+    
     books.push(book);
-    res.send('Book is added to the database');
+    console.log("book added: ", books);
+    res.send(`
+        <h1>Book is added to the database</h1>
+        <nav>
+            <ul>
+                <li><a href="/new-book.html">Add New Book</a></li>
+                <li><a href="/book-list.html">Book List</a></li>
+            </ul>
+        </nav>
+    `);
 });
 
 app.post('/book/:isbn', (req, res) => {

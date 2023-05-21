@@ -1,4 +1,6 @@
+console.log("in list script");
 async function loadBooks(){
+    console.log("loading books...");
     let response = await fetch("http://localhost:3000/books");
 
     console.log(response.status); //200
@@ -41,8 +43,6 @@ async function loadBooks(){
         }
     }
 }
-
-
 
 async function setEditModal(isbn){
     let response = await fetch(`http://localhost:3000/book/${isbn}`);

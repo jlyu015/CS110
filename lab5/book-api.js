@@ -65,6 +65,25 @@ app.get('/book/:isbn', (req,res) =>{
     }
 });
 
+app.delete('/book/:isbn', (req, res) =>{
+    const isbn = req.params.isbn;
+    let book = null;
+
+    for(let i = 0; i < books.length; i++){
+        if(books[i].isbn === isbn){
+            book = books[i];
+            books.splice(i, 1);
+            break;
+        }
+    }
+
+    if(book){
+        res.json(book);
+    } 
+    else{
+        res.send('Book not found');
+    }
+});
 
 
 app.listen(port, () => console.log('Hello world app listening on port '));

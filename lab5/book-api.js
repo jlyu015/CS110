@@ -7,7 +7,10 @@ const port = 3000;
 
 //Where we will keep books
 let books = [];
-
+function loadBooks() {
+    let data = require('./book.json');
+    books = data.books;
+}
 app.use(cors());
 
 //Configuring body parser middlemare
@@ -26,6 +29,25 @@ app.get('/book-list.html', (req, res) => {
     res.sendFile(__dirname + '/book-list.html');
 });
 
+app.get('/book', (req, res) => {
+    // books = JSON.parse('./books.json');
+    // console.log(books);
+    res.send(`
+    <h1>Select an option</h1>
+    <nav>
+        <ul>
+            <li><a href="/new-book.html">Add New Book</a></li>
+            <li><a href="/book-list.html">Book List</a></li>
+        </ul>
+    </nav>
+`)
+});
+app.get('/book.json', (req, res) => {
+    res.sendFile('/book.json');
+
+    // console.log("after /book.json " ,books);
+  
+  });
 app.get('/book-list.js', (req, res) => {
     res.setHeader('Content-Type', 'application/javascript');
     res.sendFile(__dirname + '/book-list.js');
@@ -117,6 +139,6 @@ app.delete('/book/:isbn', (req, res) =>{
         res.send('Book not found');
     }
 });
-
+loadBooks();
 app.use(express.static('public'));
 app.listen(port, () => console.log('Hello world app listening on port ', port));

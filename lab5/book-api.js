@@ -64,13 +64,13 @@ app.post('/book/:isbn', (req, res) => {
 
     // sending 404 when not found something is a good practice
     res.send(`
-        <h1>Book is edited</h1>
-        <nav>
-            <ul>
-                <li><a href="/new-book.html">Add New Book</a></li>
-                <li><a href="/book-list.html">Book List</a></li>
-            </ul>
-        </nav>
+    <h1>Book has been edited</h1>
+    <nav>
+        <ul>
+            <li><a href="/new-book.html">Add New Book</a></li>
+            <li><a href="/book-list.html">Book List</a></li>
+        </ul>
+    </nav>
     `);
 });
 

@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.post('/book', (req, res) => {
     const book = req.body;
 
-    console.log(book);
+    console.log("book added: ", book);
     books.push(book);
     res.send('Book is added to the database');
 });
@@ -76,8 +76,9 @@ app.delete('/book/:isbn', (req, res) =>{
             break;
         }
     }
-
+    console.log("inside app delete");
     if(book){
+        console.log("found book", book);
         res.json(book);
     } 
     else{
@@ -85,5 +86,5 @@ app.delete('/book/:isbn', (req, res) =>{
     }
 });
 
-
-app.listen(port, () => console.log('Hello world app listening on port '));
+app.use(express.static('public'));
+app.listen(port, () => console.log('Hello world app listening on port ', port));

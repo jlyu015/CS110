@@ -5,17 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
     <nav>
-        <a href="book-list.html">Book List</a>
+        <ul>
+            <li><a href="/book-list.html">Book List</a></li>
+            <li><a href="/books">Books Endpoint</a></li>
+        </ul>
     </nav>
     <div class="container">
         <hr>
         <h1>Create New Book</h1>
         <hr>
     
-        <form action="http:/localhost:3000/book" method="POST">
+        <form action="/book" method="POST">
             <div class="form-group">
                 <label for="ISBN">ISBN</label>
                 <input class="form-control" name="isbn">

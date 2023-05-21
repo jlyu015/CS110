@@ -13,21 +13,39 @@ app.use(cors());
 //Configuring body parser middlemare
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    next();
+  });
+
+app.get('/new-book.html', (req, res) => {
+    res.sendFile(__dirname + '/new-book.html');
+  });
+
+app.get('/book-list.html', (req, res) => {
+    res.sendFile(__dirname + '/book-list.html');
+});
+
+app.get('/book-list.js', (req, res) => {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.sendFile(__dirname + '/book-list.js');
+  });
 
 app.post('/book', (req, res) => {
     const book = req.body;
 
-    console.log(book);
+    
     books.push(book);
-    const navbar = `
-    <nav>
-        <ul>
-            <li><a href="/book-list.html">Book List</a></li>
-            <li><a href="/new-book.html">New Book</a></li>
-        </ul>
-    </nav>
-    `;
-    res.send(navbar);
+    console.log("book added: ", books);
+    res.send(`
+        <h1>Book is added to the database</h1>
+        <nav>
+            <ul>
+                <li><a href="/new-book.html">Add New Book</a></li>
+                <li><a href="/book-list.html">Book List</a></li>
+            </ul>
+        </nav>
+    `);
 });
 
 app.post('/book/:isbn', (req, res) => {
@@ -45,7 +63,15 @@ app.post('/book/:isbn', (req, res) => {
     }
 
     // sending 404 when not found something is a good practice
-    res.send('Book is edited');
+    res.send(`
+        <h1>Book is edited</h1>
+        <nav>
+            <ul>
+                <li><a href="/new-book.html">Add New Book</a></li>
+                <li><a href="/book-list.html">Book List</a></li>
+            </ul>
+        </nav>
+    `);
 });
 
 app.get('/books', (req, res) =>{
@@ -82,8 +108,9 @@ app.delete('/book/:isbn', (req, res) =>{
             break;
         }
     }
-
+    console.log("inside app delete");
     if(book){
+        console.log("found book", book);
         res.json(book);
     } 
     else{
@@ -91,12 +118,5 @@ app.delete('/book/:isbn', (req, res) =>{
     }
 });
 
-app.get('/new-book.html', (req, res) => {
-    res.sendFile(__dirname + '/new-book.html');
-});
-
-app.get('/book-list.html', (req, res) => {
-    res.sendFile(__dirname + '/book-list.html');
-});
-
-app.listen(port, () => console.log('Hello world app listening on port '));
+app.use(express.static('public'));
+app.listen(port, () => console.log('Hello world app listening on port ', port));

@@ -19,15 +19,21 @@ app.post('/book', (req, res) => {
 
     console.log(book);
     books.push(book);
-    res.send('Book is added to the database');
+    const navbar = `
+    <nav>
+        <ul>
+            <li><a href="/book-list.html">Book List</a></li>
+            <li><a href="/new-book.html">New Book</a></li>
+        </ul>
+    </nav>
+    `;
+    res.send(navbar);
 });
 
 app.post('/book/:isbn', (req, res) => {
     //reading isbn from the URL
     const isbn = req.params.isbn;
     const newBook = req.body;
-
-    console.log("inside");
 
     // remove item from the books array
     for(let i = 0; i < books.length; i++){
@@ -85,5 +91,12 @@ app.delete('/book/:isbn', (req, res) =>{
     }
 });
 
+app.get('/new-book.html', (req, res) => {
+    res.sendFile(__dirname + '/new-book.html');
+});
+
+app.get('/book-list.html', (req, res) => {
+    res.sendFile(__dirname + '/book-list.html');
+});
 
 app.listen(port, () => console.log('Hello world app listening on port '));

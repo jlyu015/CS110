@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+    <nav>
+        <a href="book-list.html">Book List</a>
+    </nav>
     <div class="container">
         <hr>
         <h1>Create New Book</h1>
@@ -43,7 +46,14 @@
                 <input class="form-control" name="numOfPages">
             </div>
             
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" onclick="redirectNewBook()">Submit</button>
+
+            <script>
+                function redirectNewBook(){
+                    // window.location.href = "new-book.html";
+                    // alert("Book is added to the database");
+                }
+            </script>
         </form>
     </div>
 </body>

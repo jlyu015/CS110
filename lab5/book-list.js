@@ -11,7 +11,7 @@ async function loadBooks(){
         console.log(data);
         const books = JSON.parse(data);
 
-
+        document.getElementById('books').innerHTML = "";
         for(let book of books){
             const x = `
             <div class="col-4">
@@ -38,7 +38,6 @@ async function loadBooks(){
                 </div>
             </div>
             `
-
             document.getElementById('books').innerHTML = document.getElementById('books').innerHTML + x;
         }
     }

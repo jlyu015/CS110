@@ -40,7 +40,7 @@ database.once('open', () => console.log('Connceted to Database'));
 
 // Set up the session
 // TODO: your code here
-const sessionMiddleware = sesstion({
+const sessionMiddleware = session({
   resave: false, // Whether to save the session to the store on every request
   saveUninitialized: false, // Whether to save uninitialized sessions to the store
   secret: process.env.SESSION_SECRET,
@@ -49,7 +49,7 @@ const sessionMiddleware = sesstion({
 
 app.use(sessionMiddleware);
 
-
+//handling request to root of website
 app.get('/', (req, res) => {
   if (req.session && req.session.authenticated) {
     res.json({ message: "logged in" });

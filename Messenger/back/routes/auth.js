@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../model/user');
+const path = require('path')
 const router = express.Router()
 
 module.exports = router;
@@ -76,7 +77,8 @@ router.post('/login', async (req, res) => {
     else {
       session.authenticated = true;
       session.username = username;
-      res.json({ msg: "Logged in", status: true });
+      // res.json({ msg: "Logged in", status: true });
+      res.sendFile(path.join(__dirname, '..','..', 'front', 'rooms.html'))
     }
 });
 router.use((req, res, next) => {

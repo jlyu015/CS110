@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router()
 // TODO: add rest of the necassary imports
-
+const User = require('../model/user');
+const Room = require('../model/room');
 
 module.exports = router;
 
@@ -15,7 +16,7 @@ router.get('/all', (req, res) => {
 });
 
 
-router.post('/create', (req, res) => {
+router.post('/create', async (req, res) => {
     // TODO: write necassary codesn to Create a new room
 });
 

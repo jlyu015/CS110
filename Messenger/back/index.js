@@ -6,6 +6,7 @@ const cors  = require("cors");
 const session = require('express-session');
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const path = require('path');
 const bodyParser = require( 'body-parser');
 const auth = require('./routes/auth');
 const rooms = require('./routes/rooms');
@@ -58,11 +59,13 @@ app.use("/api/rooms/", rooms);
 //handling request to root of website
 app.get('/', (req, res) => {
   if (req.session && req.session.authenticated) {
-    res.json({ message: "logged in" });
+    // res.json({ message: "logged in" });
+    res.sendFile(path.join(__dirname, '..', 'front','rooms.html' ))
   }
   else {  
     console.log("not logged in")
-    res.json({ message: "not logged" });
+    // res.json({ message: "not logged" });
+    res.sendFile(path.join(__dirname, '..', 'front', 'login_signup.html'));
   }
 });
 

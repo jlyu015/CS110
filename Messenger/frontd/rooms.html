@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Rooms</title>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <div id="rooms">
+    <h2>Rooms</h2>
+    <ul id="room-list">
+      <!-- insert from js -->
+    </ul>
+    <form id="create-room-form">
+      <input type="text" id="room-name-input" placeholder="Room name">
+      <button type="submit">Create room</button>
+    </form>
+  </div>
+  <script src="js/rooms.js"></script>
+</body>
+</html>

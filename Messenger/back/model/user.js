@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    name: {
+    displayName: {
         type: String,
         required: true,
     },
@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
         required: true,
     }
 
-})
+    },
+    {
+        collection: 'UserData', // Specify the custom collection name
+    }
+)
 
 module.exports = mongoose.model('User', userSchema)

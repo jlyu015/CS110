@@ -35,6 +35,7 @@ app.use(bodyParser.json());
 mongoose.connect(process.env.MONGO_URL);
 const database = mongoose.connection;
 
+
 database.on('error', (error) => console.error(error));
 database.once('open', () => console.log('Connceted to Database'));
 
@@ -49,6 +50,11 @@ const sessionMiddleware = session({
 
 app.use(sessionMiddleware);
 
+app.use(express.static('front'));
+app.use("/api/auth/", auth);
+app.use("/api/rooms/", rooms);
+
+
 //handling request to root of website
 app.get('/', (req, res) => {
   if (req.session && req.session.authenticated) {
@@ -60,8 +66,11 @@ app.get('/', (req, res) => {
   }
 });
 
+//access signup page from route without session
+app.get('/signup', (req, res) => {
+  res.redirect('/api/auth/signup');
+});
 
-app.use("/api/auth/", auth);
 
 
 // checking the session before accessing the rooms
@@ -72,7 +81,10 @@ app.use((req, res, next) => {
     res.status(401).send("Unauthorized");
   }
 });
-app.use("/api/rooms/", rooms);
+
+
+
+
 
 
 
@@ -84,7 +96,7 @@ server.listen(process.env.PORT, () => {
 
 // TODO: make sure that the user is logged in before connecting to the socket
 // TODO: your code here
-io.use((socket, nexT) => {
+io.use((socket, next) => {
   console.log("socket io middleware")
   sessionMiddleware(socket.request, {}, next);
 });

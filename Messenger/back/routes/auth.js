@@ -33,36 +33,6 @@ router.post('/signup', async (req, res) =>{
   // TODO: Store the new user in the database
 });
 
-router.get('/signup', (req, res) => {
-  res.send(`
-    <h2>Signup</h2>
-    <form action="/api/auth/signup" method="post">
-      <label for="username">Username:</label><br>
-      <input type="text" id="username" name="username"><br>
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password"><br>
-      <label for="displayName">Display Name:</label><br>
-      <input type="text" id="displayName" name="displayName"><br>
-      <input type="submit" value="Submit">
-    </form>
-  `);
-});
-router.get('/login', (req, res) => {
-  res.send(`
-    <h2>Login</h2>
-    <form action="/api/auth/login" method="post">
-      <label for="username">Username:</label><br>
-      <input type="text" id="username" name="username"><br>
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password"><br>
-      <input type="submit" value="Submit">
-    </form>
-  `);
-});
-
-
-
-
 router.post('/login', async (req, res) => {
     const {session} = req;
     const { username, password } = req.body;
@@ -78,7 +48,8 @@ router.post('/login', async (req, res) => {
       session.authenticated = true;
       session.username = username;
       // res.json({ msg: "Logged in", status: true });
-      res.sendFile(path.join(__dirname, '..','..', 'front', 'rooms.html'))
+      // res.sendFile(path.join(__dirname, '..','..', 'front', 'rooms.html'))
+      res.redirect('/');
     }
 });
 router.use((req, res, next) => {
@@ -95,3 +66,12 @@ router.get('/logout', (req, res) => {
     res.send({msg: "Logged out", status: true})
   });
 
+router.get('/login', (req, res) => {
+  if (req.session && req.session.authenticated) {
+    // User is already authenticated, redirect to the home page or rooms page
+    res.redirect('/'); // Replace with the appropriate URL
+  } else {
+    // User is not authenticated, show the login/signup page
+    res.sendFile(path.join(__dirname, '..', 'front', 'login_signup.html'));
+  }
+});

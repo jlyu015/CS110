@@ -51,7 +51,15 @@ const sessionMiddleware = session({
 
 app.use(sessionMiddleware);
 
-app.use(express.static('front'));
+app.use(express.static('front', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.type('application/javascript');
+    }
+  }
+}));
+
+
 app.use("/api/auth/", auth);
 app.use("/api/rooms/", rooms);
 
@@ -67,6 +75,11 @@ app.get('/', (req, res) => {
     // res.json({ message: "not logged" });
     res.sendFile(path.join(__dirname, '..', 'front', 'login_signup.html'));
   }
+});
+
+
+app.get('/js/rooms.js', (req, res) => {
+  res.sendFile(path.join(__dirname, '../front/js/rooms.js'));
 });
 
 //access signup page from route without session
@@ -105,7 +118,7 @@ io.use((socket, next) => {
 });
 
 io.use((socket, next) => {
-  if(socket.request.session && socket.request.sesion.authenticated){
+  if(socket.request.session && socket.request.session.authenticated){
     next();
   }
   else {
